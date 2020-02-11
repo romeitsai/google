@@ -8,7 +8,15 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <title>點餐系統管理</title>
+		<title>點餐系統管理</title>
+		<style>
+				.error{
+					color: darkgreen;
+				}
+		</style>
+		<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -17,15 +25,13 @@
 		<!-- 表單返回頁，記得在表單加「 target='returnWin' 」 -->
 		<iframe name="returnWin" style="display: none;" onload="this.onload=function(){window.location='ok.html'}"></iframe>
 
-    <form target='returnWin' role="form" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfsOyQzQKahw-QcVLLfRtiytYHvdGYX7ZeVzdm9uLk-_XMaZg/formResponse
-
-		" method="post" id="myForm" >
+    <form target='returnWin' role="form" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfsOyQzQKahw-QcVLLfRtiytYHvdGYX7ZeVzdm9uLk-_XMaZg/formResponse" method="post" id="myForm" >
         <div class="row">         
 							<!--桌號--> 
 						<div class="col-sm-3">
                 <div class="form-group">
                   <label>桌號<span class="text-danger">*</span></label>
-                  <select name="entry.330382438" id="330382438" class="form-control" size="1">              
+                  <select name="entry.330382438" id="330382438" class="form-control " size="1">              
                     <option value="">請選擇桌號</option>
                     <option value="1號桌">1號桌</option>
                     <option value="2號桌">2號桌</option>
@@ -42,28 +48,28 @@
             <div class="col-sm-3">
                 <div class="form-group">
                   <label>雞腿飯-90元<span class="text-danger">(請填數量)</span class="text-danger"></label>
-                  <input type="number" class="form-control" name="entry.396355369" id="396355369" value="0">
+                  <input type="number" class="form-control" name="entry.396355369" id="396355369" value="0" min=0>
                 </div>
             </div>          
               <!--雞排飯-80元-->              
             <div class="col-sm-3">
                 <div class="form-group">
                   <label>雞排飯-80元<span class="text-danger">(請填數量)</span class="text-danger"></label>
-                  <input type="number" class="form-control" name="entry.2002526905" id="2002526905" value="0">
+                  <input type="number" class="form-control" name="entry.2002526905" id="2002526905" value="0" min=0>
                 </div>
             </div>          
               <!--排骨飯-70元-->              
             <div class="col-sm-3">
                 <div class="form-group">
                   <label>排骨飯-70元<span class="text-danger">(請填數量)</span class="text-danger"></label>
-                  <input type="number" class="form-control" name="entry.1405020849" id="1405020849" value="0">
+                  <input type="number" class="form-control" name="entry.1405020849" id="1405020849" value="0" min=0>
                 </div>
             </div>          
               <!--招牌飯-60元-->              
             <div class="col-sm-3">
                 <div class="form-group">
                   <label>招牌飯-60元<span class="text-danger">(請填數量)</span class="text-danger"></label>
-                  <input type="number" class="form-control" name="entry.522405922" id="522405922" value="0">
+                  <input type="number" class="form-control" name="entry.522405922" id="522405922" value="0" min=0>
                 </div>
             </div> 
     
@@ -84,10 +90,66 @@
         </div>
     </form>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+		
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+		<!-- 表單驗證 -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+<!-- 調用驗證方法 -->
+<script>
+		$(function(){
+				$("#myForm").validate({
+						submitHandler: function(form) {
+								form.submit();
+						},
+						rules: {
+								'entry.330382438' : {//桌號
+										required: true
+								},
+								'entry.396355369' : {//雞腿飯
+										digits:true ,
+										min: 0
+								},
+								'entry.2002526905' : {//雞排飯
+										digits:true ,
+										min: 0
+								},
+								'entry.1405020849' : {//排骨飯
+										digits:true ,
+										min: 0
+								},
+								'entry.522405922' : {//招牌飯
+										digits:true ,
+										min: 0
+								}
+						},
+						messages: {
+								'entry.330382438' : {
+										required: "請輸入桌號"
+								},
+								'entry.396355369' : {
+										digits:"請填正確整數>=1" ,
+										min: "請填正確整數>=1"
+								},
+								'entry.2002526905' : {//雞排飯
+										digits:"請填正確整數>=1" ,
+										min: "請填正確整數>=1"
+								},
+								'entry.1405020849' : {//排骨飯
+										digits:"請填正確整數>=1" ,
+										min: "請填正確整數>=1"
+								},
+								'entry.522405922' : {//招牌飯
+										digits:"請填正確整數>=1" ,
+										min: "請填正確整數>=1"
+								}
+
+						}
+				});
+
+		});
+</script>
   </body>
 </html>
