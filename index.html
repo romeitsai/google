@@ -17,7 +17,7 @@
 		<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  </head>
+</head>
   <body>
     <div class="container">
 		<h1 class="mt-5 text-center">點餐系統管理</h1>
@@ -27,8 +27,8 @@
 
     <form target='returnWin' role="form" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfsOyQzQKahw-QcVLLfRtiytYHvdGYX7ZeVzdm9uLk-_XMaZg/formResponse" method="post" id="myForm" >
         <div class="row">         
-							<!--桌號--> 
-						<div class="col-sm-3">
+			<!--桌號--> 
+			<div class="col-sm-3">
                 <div class="form-group">
                   <label>桌號<span class="text-danger">*</span></label>
                   <select name="entry.330382438" id="330382438" class="form-control " size="1">              
@@ -42,34 +42,42 @@
                   </select>
                 </div>
             </div>
+            <!--合計-->              
+            <div class="col-sm-3">
+              <div class="form-group">
+                  <label>合計</label>
+                  <input type="text" class="form-control" name="" id="total" value="" readonly>
+              </div>
+          </div>      
+
         </div>
         <div class="row">
               <!--雞腿飯-90元-->              
             <div class="col-sm-3">
                 <div class="form-group">
-                  <label>雞腿飯-90元<span class="text-danger">(請填數量)</span class="text-danger"></label>
-                  <input type="number" class="form-control" name="entry.396355369" id="396355369" value="0" min=0>
+                  <label><span class="title">雞腿飯-90元</span><span class="text-danger">(請填數量)</span class="text-danger"></label>
+                  <input type="number" class="form-control amount" name="entry.396355369" id="396355369" value="0" min=0 onchange="calTotal();">
                 </div>
             </div>          
               <!--雞排飯-80元-->              
             <div class="col-sm-3">
                 <div class="form-group">
-                  <label>雞排飯-80元<span class="text-danger">(請填數量)</span class="text-danger"></label>
-                  <input type="number" class="form-control" name="entry.2002526905" id="2002526905" value="0" min=0>
+                  <label><span class="title">雞排飯-80元</span></span><span class="text-danger">(請填數量)</span class="text-danger"></label>
+                  <input type="number" class="form-control amount" name="entry.2002526905" id="2002526905" value="0" min=0 onchange="calTotal();">
                 </div>
             </div>          
               <!--排骨飯-70元-->              
             <div class="col-sm-3">
                 <div class="form-group">
-                  <label>排骨飯-70元<span class="text-danger">(請填數量)</span class="text-danger"></label>
-                  <input type="number" class="form-control" name="entry.1405020849" id="1405020849" value="0" min=0>
+                  <label><span class="title">排骨飯-70元</span><span class="text-danger">(請填數量)</span class="text-danger"></label>
+                  <input type="number" class="form-control amount" name="entry.1405020849" id="1405020849" value="0" min=0 onchange="calTotal();">
                 </div>
             </div>          
               <!--招牌飯-60元-->              
             <div class="col-sm-3">
                 <div class="form-group">
-                  <label>招牌飯-60元<span class="text-danger">(請填數量)</span class="text-danger"></label>
-                  <input type="number" class="form-control" name="entry.522405922" id="522405922" value="0" min=0>
+                  <label><span class="title">招牌飯-60元</span><span class="text-danger">(請填數量)</span class="text-danger"></label>
+                  <input type="number" class="form-control amount" name="entry.522405922" id="522405922" value="0" min=0 onchange="calTotal();">
                 </div>
             </div> 
     
@@ -123,27 +131,28 @@
 								'entry.522405922' : {//招牌飯
 										digits:true ,
 										min: 0
-								}
+								},
+								
 						},
 						messages: {
 								'entry.330382438' : {
 										required: "請輸入桌號"
 								},
 								'entry.396355369' : {
-										digits:"請填正確整數>=1" ,
-										min: "請填正確整數>=1"
+										digits:"請填入>=1的整數" ,
+										min: "請填入>=1的整數"
 								},
 								'entry.2002526905' : {//雞排飯
-										digits:"請填正確整數>=1" ,
-										min: "請填正確整數>=1"
+										digits:"請填入>=1的整數" ,
+										min: "請填入>=1的整數"
 								},
 								'entry.1405020849' : {//排骨飯
-										digits:"請填正確整數>=1" ,
-										min: "請填正確整數>=1"
+										digits:"請填入>=1的整數" ,
+										min: "請填入>=1的整數"
 								},
 								'entry.522405922' : {//招牌飯
-										digits:"請填正確整數>=1" ,
-										min: "請填正確整數>=1"
+										digits:"請填入>=1的整數" ,
+										min: "請填入>=1的整數"
 								}
 
 						}
@@ -151,5 +160,36 @@
 
 		});
 </script>
+
+	<script>
+			calTotal();
+			function calTotal(){
+				//document.getElementsByClassName("amount")[0].value取數量
+				//document.getElementsByClassName("title")[0].innerText取標題
+				var amounts = document.getElementsByClassName("amount");
+				var titles = document.getElementsByClassName("title");
+				var total = 0;
+
+				for(var i=0; i < titles.length; i++){
+					var title = document.getElementsByClassName("title")[i].innerText;
+					var amount = document.getElementsByClassName("amount")[i].value;
+					var subArr = title.split("-");
+					var price = parseInt(subArr[1]);
+					total += (amount * price);
+									
+				}
+				document.getElementById("total").value = total;
+			}
+				
+					
+					
+					
+				
+				
+
+			
+		
+	</script>
+
   </body>
 </html>
