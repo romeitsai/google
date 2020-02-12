@@ -46,7 +46,7 @@
             <div class="col-sm-3">
               <div class="form-group">
                   <label>合計</label>
-                  <input type="text" class="form-control" name="" id="total" value="" readonly>
+                  <input type="text" class="form-control" name="total" id="total" value="" readonly>
               </div>
           </div>      
 
@@ -132,7 +132,9 @@
 										digits:true ,
 										min: 0
 								},
-								
+								'total' : {//桌號
+										required: true
+								}
 						},
 						messages: {
 								'entry.330382438' : {
@@ -153,8 +155,10 @@
 								'entry.522405922' : {//招牌飯
 										digits:"請填入>=1的整數" ,
 										min: "請填入>=1的整數"
-								}
-
+								},
+								'total' : {//桌號
+										required:"您尚未點餐"
+								}	
 						}
 				});
 
@@ -178,7 +182,12 @@
 					total += (amount * price);
 									
 				}
-				document.getElementById("total").value = total;
+				if(total === 0){
+					document.getElementById("total").value = "";	
+				}else{
+					document.getElementById("total").value = total;
+				}
+				
 			}
 				
 					
